@@ -1,5 +1,4 @@
 import com.github.sarxos.webcam.Webcam;
-import sun.awt.AWTIcon32_security_icon_yellow16_png;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,6 +8,41 @@ import java.io.IOException;
 
 public class CameraApp {
 
+
+    private static Point[] getCenterPixels() {
+        return
+                new Point[]{
+                        new Point(53,58),
+                        new Point(69,50),
+                        new Point(83,45),
+                        new Point(68,65),
+                        new Point(85,57),
+                        new Point(99,49),
+                        new Point(86,74),
+                        new Point(103,64),
+                        new Point(116,50),
+
+                        new Point(47,71),
+                        new Point(61,80),
+                        new Point(78,90),
+                        new Point(49,71),
+                        new Point(63,99),
+                        new Point(79,110),
+                        new Point(51,104),
+                        new Point(65,115),
+                        new Point(79,126),
+
+                        new Point(95,90),
+                        new Point(111,78),
+                        new Point(124,68),
+                        new Point(95,109),
+                        new Point(111,96),
+                        new Point(122,87),
+                        new Point(95,125),
+                        new Point(109,113),
+                        new Point(120,103)
+        };
+    }
 
     public static void main(String[] args) throws IOException {
         takePicture();
@@ -25,10 +59,11 @@ public class CameraApp {
 
     static String getHalfCube(String name) throws IOException {
         BufferedImage image = ImageIO.read(new File(name));
-        return colorFromPixel(image,89,44) +
-                colorFromPixel(image,113,90) +
-                colorFromPixel(image,62,89);
-
+        StringBuilder builder = new StringBuilder();
+        for (Point point : getCenterPixels()) {
+            builder.append(colorFromPixel(image,point.x, point.y));
+        }
+        return builder.toString();
     }
 
     static String colorFromPixel(BufferedImage image, int x, int y) {
@@ -42,7 +77,7 @@ public class CameraApp {
     static void takePicture() throws IOException {
         Webcam webcam = Webcam.getDefault();
         webcam.open();
-        ImageIO.write(webcam.getImage(), "PNG", new File("guanlong-yrb.png"));
+        ImageIO.write(webcam.getImage(), "PNG", new File("ugly-dudes-on-the-bus+.png"));
     }
 
     static float[] rgbToHsb(int rgb) {
